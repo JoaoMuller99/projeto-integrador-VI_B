@@ -39,6 +39,10 @@ class InterfaceWs {
   async criarUsuario(dadosUsuario) {
     return await this.comunicar("POST", "/api/usuarios", { body: JSON.stringify(dadosUsuario) });
   }
+
+  async historicoPedidos(idUsuario) {
+    return await this.comunicar("GET", `/api/pedidos/${idUsuario}`);
+  }
 }
 
 const ws = new InterfaceWs();
