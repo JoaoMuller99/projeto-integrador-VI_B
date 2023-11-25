@@ -38,7 +38,7 @@ export default function App() {
     "AbhayaLibre-Bold": require("./assets/fonts/AbhayaLibre-Bold.ttf"), // ? 700
     "AbhayaLibre-ExtraBold": require("./assets/fonts/AbhayaLibre-ExtraBold.ttf"), // ? 800
   });
-  const [userInfo, setUserInfo] = useState(fakeUser);
+  const [userInfo, setUserInfo] = useState(null);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
