@@ -4,7 +4,7 @@ import EStyleSheet from "react-native-extended-stylesheet";
 import LoginForm from "../components/Login/LoginForm";
 import SignUpForm from "../components/Login/SignUpForm";
 
-export default function Login() {
+export default function Login({ setUserInfo }) {
   const [selectedMenu, setSelectedMenu] = useState("login");
 
   function changeSelectedMenu(value) {
@@ -38,7 +38,7 @@ export default function Login() {
           </View>
         </TouchableOpacity>
       </View>
-      {selectedMenu === "login" ? <LoginForm /> : <SignUpForm />}
+      {selectedMenu === "login" ? <LoginForm setUserInfo={setUserInfo} /> : <SignUpForm setUserInfo={setUserInfo} />}
     </ScrollView>
   );
 }
@@ -62,7 +62,7 @@ const styles = EStyleSheet.create({
     alignItems: "center",
     width: "100%",
     borderRadius: "14.375rem",
-    backgroundColor: "rgba(253, 211, 225, 0.40)",
+    backgroundColor: "$formSelectorBg",
     padding: "0.62rem",
   },
   touchableOpacityContainer: {
@@ -74,7 +74,7 @@ const styles = EStyleSheet.create({
     padding: "0.62rem",
   },
   selectedButtonView: {
-    backgroundColor: "#F4739E",
+    backgroundColor: "$formSelectorSelectedBg",
   },
   buttonText: {
     fontSize: "1.1rem",
