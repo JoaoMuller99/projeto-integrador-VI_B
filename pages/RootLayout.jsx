@@ -77,7 +77,7 @@ export default function RootLayout({ userInfo, setUserInfo }) {
       ) : currentPage === "opcoes" ? (
         <Opcoes addItemToStack={addItemToStack} />
       ) : currentPage === "alterar-cadastro" ? (
-        <AlterarCadastro />
+        <AlterarCadastro userInfo={userInfo} setUserInfo={setUserInfo} />
       ) : currentPage === "historico-pedidos" ? (
         <HistoricoPedidos userInfo={userInfo} />
       ) : (

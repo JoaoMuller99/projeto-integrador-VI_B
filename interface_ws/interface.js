@@ -40,6 +40,10 @@ class InterfaceWs {
     return await this.comunicar("POST", "/api/usuarios", { body: JSON.stringify(dadosUsuario) });
   }
 
+  async atualizaUsuario(idUsuario, dadosUsuario) {
+    return await this.comunicar("PATCH", `/api/usuarios/${idUsuario}`, { body: JSON.stringify(dadosUsuario) });
+  }
+
   async historicoPedidos(idUsuario) {
     return await this.comunicar("GET", `/api/pedidos/${idUsuario}`);
   }
