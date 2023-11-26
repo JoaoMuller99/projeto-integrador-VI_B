@@ -19,6 +19,7 @@ EStyleSheet.build({
   $buttonFormBg: "#45B8E9",
   $buttonCarrinhoBg: "#2D3943",
   $buttonFazerPedidoBg: "#276D5C",
+  $buttonPedidoFinalizado: "#E47070",
 });
 
 export default function App() {

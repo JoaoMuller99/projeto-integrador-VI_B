@@ -50,7 +50,7 @@ const styles = EStyleSheet.create({
     padding: "1.25rem",
     alignItems: "center",
     borderRadius: "1.125rem",
-    backgroundColor: "#E47070",
+    backgroundColor: "$buttonPedidoFinalizado",
   },
   textoVoltarButton: {
     color: "white",
