@@ -17,6 +17,8 @@ EStyleSheet.build({
   $formSelectorBg: "rgba(253, 211, 225, 0.40)",
   $formSelectorSelectedBg: "#F4739E",
   $buttonFormBg: "#45B8E9",
+  $buttonCarrinhoBg: "#2D3943",
+  $buttonFazerPedidoBg: "#276D5C",
 });
 
 const fakeUser = {

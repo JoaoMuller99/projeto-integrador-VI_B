@@ -3,17 +3,23 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import EStyleSheet from "react-native-extended-stylesheet";
 import { Path, Svg } from "react-native-svg";
 import AlterarCadastro from "../components/RootLayout/AlterarCadastro";
+import Carrinho from "../components/RootLayout/Carrinho";
 import GerarPedido from "../components/RootLayout/GerarPedido";
 import HistoricoPedidos from "../components/RootLayout/HistoricoPedidos";
 import Opcoes from "../components/RootLayout/Opcoes";
+import PedidoRealizado from "../components/RootLayout/PedidoRealizado";
+
+const initialStackState = ["gerar-pedido"];
 
 export default function RootLayout({ userInfo, setUserInfo }) {
-  const [pagesHistory, setPagesHistory] = useState(["gerar-pedido"]);
+  const [pagesHistory, setPagesHistory] = useState(initialStackState);
+  const [itensCarrinho, setItensCarrinho] = useState([]);
 
   const currentPage = pagesHistory.at(-1);
 
-  const disableBackButton = currentPage === "gerar-pedido";
-  const disableOpcoesButton = currentPage === "opcoes" || currentPage === "alterar-cadastro" || currentPage === "historico-pedidos";
+  const disableBackButton = currentPage === "gerar-pedido" || currentPage === "pedido-realizado";
+  const disableOpcoesButton =
+    currentPage === "opcoes" || currentPage === "alterar-cadastro" || currentPage === "historico-pedidos" || currentPage === "pedido-realizado";
 
   function backButtonHandler() {
     setPagesHistory((prev) => prev.slice(0, -1));
@@ -22,6 +28,10 @@ export default function RootLayout({ userInfo, setUserInfo }) {
   function addItemToStack(item) {
     if (currentPage === item) return;
     setPagesHistory((prev) => prev.concat(item));
+  }
+
+  function resetStack() {
+    setPagesHistory(initialStackState);
   }
 
   return (
@@ -73,13 +83,17 @@ export default function RootLayout({ userInfo, setUserInfo }) {
       </View>
 
       {currentPage === "gerar-pedido" ? (
-        <GerarPedido />
+        <GerarPedido addItemToStack={addItemToStack} setItensCarrinho={setItensCarrinho} />
       ) : currentPage === "opcoes" ? (
         <Opcoes addItemToStack={addItemToStack} />
       ) : currentPage === "alterar-cadastro" ? (
         <AlterarCadastro userInfo={userInfo} setUserInfo={setUserInfo} />
       ) : currentPage === "historico-pedidos" ? (
         <HistoricoPedidos userInfo={userInfo} />
+      ) : currentPage === "carrinho" ? (
+        <Carrinho itensCarrinho={itensCarrinho} addItemToStack={addItemToStack} userInfo={userInfo} />
+      ) : currentPage === "pedido-realizado" ? (
+        <PedidoRealizado resetStack={resetStack} />
       ) : (
         <></>
       )}

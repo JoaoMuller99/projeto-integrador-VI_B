@@ -47,6 +47,14 @@ class InterfaceWs {
   async historicoPedidos(idUsuario) {
     return await this.comunicar("GET", `/api/pedidos/${idUsuario}`);
   }
+
+  async pratos(idEstabelecimento) {
+    return await this.comunicar("GET", `/api/pratos/${idEstabelecimento}`);
+  }
+
+  async criarPedido(dadosPedido) {
+    return await this.comunicar("POST", "/api/pedidos", { body: JSON.stringify(dadosPedido) });
+  }
 }
 
 const ws = new InterfaceWs();
