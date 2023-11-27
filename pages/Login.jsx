@@ -16,10 +16,9 @@ export default function Login({ setUserInfo }) {
       automaticallyAdjustKeyboardInsets
       contentContainerStyle={{
         width: "100%",
-        minheight: "100%",
+        height: "100%",
         alignItems: "center",
         justifyContent: "center",
-        marginTop: 100,
       }}
       style={styles.container}
     >

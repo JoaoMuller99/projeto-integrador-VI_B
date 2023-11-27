@@ -8,19 +8,17 @@ import Input from "../ui/Input";
 const UpdateUserFormSchema = z.object({
   email: z.string().min(1, "Preencha todos os campos").email("O e-mail digitado não é válido"),
   nome: z.string().min(1, "Preencha todos os campos"),
-  logradouro: z.string().min(1, "Preencha todos os campos"),
   celular: z.string().min(1, "Preencha todos os campos").min(11, "O celular digitado não é válido"),
 });
 
 export default function AlterarCadastro({ userInfo, setUserInfo }) {
   const [email, setEmail] = useState(userInfo.email || "");
   const [nome, setNome] = useState(userInfo.nome || "");
-  const [logradouro, setLogradouro] = useState(userInfo.logradouro || "");
   const [celular, setCelular] = useState(userInfo.telefone || "");
   const [isLoading, setIsLoading] = useState(false);
 
   async function onSubmitHandler() {
-    const validatedData = UpdateUserFormSchema.safeParse({ email, nome, logradouro, celular });
+    const validatedData = UpdateUserFormSchema.safeParse({ email, nome, celular });
 
     if (!validatedData.success) {
       alert(validatedData.error.errors[0].message);
@@ -28,7 +26,7 @@ export default function AlterarCadastro({ userInfo, setUserInfo }) {
     }
 
     setIsLoading(true);
-    const resultado = await ws.atualizaUsuario(userInfo.id, { email, nome, logradouro, telefone: celular });
+    const resultado = await ws.atualizaUsuario(userInfo.id, { email, nome, telefone: celular });
     setIsLoading(false);
 
     if (resultado.temErro) {
@@ -60,16 +58,6 @@ export default function AlterarCadastro({ userInfo, setUserInfo }) {
           value={nome}
           placeholder="Digite seu nome"
         />
-        {/* LOGRADOURO INPUT */}
-        <Input
-          label="Logradouro"
-          textContentType="fullStreetAddress"
-          onChange={(e) => setLogradouro(e.nativeEvent.text)}
-          value={logradouro}
-          placeholder="Digite seu logradouro"
-        />
-        {/* CIDADE INPUT */}
-        <Input label="Cidade (apenas Porto Alegre)" textContentType="addressCity" value={userInfo.cidade} />
         {/* CELULAR INPUT */}
         <Input
           label="Celular"

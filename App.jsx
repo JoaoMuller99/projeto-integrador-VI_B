@@ -22,6 +22,17 @@ EStyleSheet.build({
   $buttonPedidoFinalizado: "#E47070",
 });
 
+const fakeUser = {
+  id: 11,
+  nome: "João",
+  email: "jp99muller@gmail.com",
+  senha: "1234",
+  telefone: "51999999999",
+  logradouro: "",
+  cidade: "",
+  created_at: "2023-11-25T16:26:23.933Z",
+};
+
 export default function App() {
   const [fontsLoaded, fontError] = useFonts({
     "AbhayaLibre-Regular": require("./assets/fonts/AbhayaLibre-Regular.ttf"), // ? 400
@@ -30,7 +41,7 @@ export default function App() {
     "AbhayaLibre-Bold": require("./assets/fonts/AbhayaLibre-Bold.ttf"), // ? 700
     "AbhayaLibre-ExtraBold": require("./assets/fonts/AbhayaLibre-ExtraBold.ttf"), // ? 800
   });
-  const [userInfo, setUserInfo] = useState(null);
+  const [userInfo, setUserInfo] = useState(fakeUser || null);
 
   const onLayoutRootView = useCallback(async () => {
     if (fontsLoaded || fontError) {
