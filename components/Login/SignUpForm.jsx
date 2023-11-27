@@ -8,19 +8,23 @@ import Input from "../ui/Input";
 const SignUpFormSchema = z.object({
   email: z.string().min(1, "Preencha todos os campos").email("O e-mail digitado não é válido"),
   nome: z.string().min(1, "Preencha todos os campos"),
+  logradouro: z.string().min(1, "Preencha todos os campos"),
   celular: z.string().min(1, "Preencha todos os campos").min(11, "O celular digitado não é válido"),
   senha: z.string().min(1, "Preencha todos os campos").min(4, "Sua senha precisa ter, no mínimo, 4 caracteres"),
 });
 
+const cidadeDisponivel = "Porto Alegre";
+
 export default function SignUpForm({ setUserInfo }) {
   const [email, setEmail] = useState("");
   const [nome, setNome] = useState("");
+  const [logradouro, setLogradouro] = useState("");
   const [celular, setCelular] = useState("");
   const [senha, setSenha] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   async function onSubmitHandler() {
-    const validatedData = SignUpFormSchema.safeParse({ email, nome, celular, senha });
+    const validatedData = SignUpFormSchema.safeParse({ email, nome, logradouro, celular, senha });
 
     if (!validatedData.success) {
       alert(validatedData.error.errors[0].message);
@@ -28,7 +32,7 @@ export default function SignUpForm({ setUserInfo }) {
     }
 
     setIsLoading(true);
-    const resultado = await ws.criarUsuario({ email, nome, telefone: celular, senha });
+    const resultado = await ws.criarUsuario({ email, nome, logradouro, cidade: cidadeDisponivel, telefone: celular, senha });
     setIsLoading(false);
 
     if (resultado.temErro) {
@@ -57,6 +61,16 @@ export default function SignUpForm({ setUserInfo }) {
         value={nome}
         placeholder="Digite seu nome"
       />
+      {/* LOGRADOURO INPUT */}
+      <Input
+        label="Logradouro"
+        textContentType="fullStreetAddress"
+        onChange={(e) => setLogradouro(e.nativeEvent.text)}
+        value={logradouro}
+        placeholder="Digite seu logradouro"
+      />
+      {/* CIDADE INPUT */}
+      <Input label="Cidade (apenas Porto Alegre)" textContentType="addressCity" value={cidadeDisponivel} />
       {/* CELULAR INPUT */}
       <Input
         label="Celular"
@@ -98,6 +112,7 @@ const styles = EStyleSheet.create({
     alignItems: "center",
     padding: "1.25rem",
     borderRadius: "1.125rem",
+    marginBottom: "20rem",
   },
   submitButtonContainerDisabled: {
     opacity: 0.6,
